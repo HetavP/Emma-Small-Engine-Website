@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global Styles */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        /* Header Styles */
+        header {
+            background: #425c43;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            margin-top: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            /* Center the links */
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 180px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 25px;
+            margin: 0 20px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        .logout-link {
+            margin-right: 20px;
+            font-size: 20px;
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .logout-link:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        /* Dropdown styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: fixed;
+            background-color: #ffffff;
+            min-width: 160px;
+            z-index: 1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            font-size: 22px;
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: bolder;
+            font-family: sans-serif;
+        }
+
+        .dropdown-content a:hover {
+            color: #425c43;
+            text-decoration: underline;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /*Fotter */
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            background: #425c43;
+            color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            position: relative;
+        }
+
+        .footer-bottom::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+
+        main {
+            background-color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 25px;
+            margin: 20px auto;
+            width: 85%;
+        }
+
+        .banner-img {
+            background-color: #425c43;
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            /* margin: 25px;
+            width: 100%; */
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .banner-img h4 {
+            font-size: 25px;
+        }
+
+        .customer-card {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 20px;
+            width: calc(43% - 80px);
+        }
+
+        .customer-card-header {
+            background-color: #425c43;
+            color: #ffffff;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+        }
+
+        .customer-card-body {
+            padding: 20px;
+        }
+
+        .customer-card-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .edit-icon {
+            margin-left: 10px;
+            /* Adjust the spacing between the icon and text */
+            font-size: 18px;
+            /* Set the font size of the icon */
+        }
+
+        .add-customer-icon {
+            font-size: 24px;
+            justify-content: start;
+            margin-top: 17px;
+        }
+
+        .customer-card-footer a {
+            color: #199696;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .customer-card-footer a:hover {
+            color: #425c43;
+            text-decoration: underline;
+        }
+
+        /* Organize cards in 3x3 grid */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .form-container label,
+        .form-container input[type="text"] {
+            width: 100%;
+            margin: 10px;
+        }
+
+        .form-container form {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+        }
+
+        .form-group {
+            width: 100%;
+        }
+
+        form input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        select {
+            margin-left: 10px;
+        }
+
+        form button[type="submit"] {
+            background-color: #425c43;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .divider {
+            width: 90%;
+            border: none;
+            border-top: 3px solid #425c43;
+            border-radius: 5px;
+            margin: 20px auto;
+        }
+
+        button[type="button"],
+        button[type="submit"] {
+            background-color: #425c43;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-left: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        button[type="button"] a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        button[type="button"]:hover,
+        button[type="submit"]:hover {
+            background-color: #2E8B57;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img alt="Logo" src="photos/Emma_logo.jpg">
+        </div>
+        <div class="logo-text">
+            <h3>Emma's Small Engine</h3>
+        </div>
+        <div class="nav-links">
+            <a href="homePage.html">Home</a>
+            <!-- <a href="repair-form.html">Repair Report</a> -->
+            <div class="dropdown">
+                <a href="customer-index.html">Customer</a>
+                <div class="dropdown-content">
+                    <a href="add-customer.html">➕ Add New Customer</a>
+                    <a href="customer-index.html">📖 View Existing Customer</a>
+                </div>
+            </div>
+            <a href="repair-record.html">Repair Records</a>
+            <a href="reports.html">Reports</a>
+        </div>
+        <span id="userRoleLabel" class="logout-link" style="font-size: 20px; color: white;"></span>
+        <a href="#" class="logout-link" data-toggle="tooltip" data-placement="top" 
+        title="Edit under each customer's record is to edit customer's details.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;
+        Equipment under each customer's record is to view equipment associated with the customer.">Help?</a>
+
+        <a class="logout-link" href="index.html">Logout</a>
+    </header>
+    <main>
+        <div class="banner-img">
+            <h2>Customer Record</h2>
+        </div>
+        <div class="form-container">
+            <form>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" required placeholder="+1 123-456-7890">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" required placeholder="abc@gmail.com">
+                </div>
+                <!-- Search Button -->
+                <button type="submit" data-toggle="tooltip" data-placement="top" title="Search as per filter">Search</button>
+                <div class="customer-card-footer add-customer-icon">
+                    <a href="add-customer.html" data-toggle="tooltip" data-placement="top" title="Add New Customer info">
+                        <span class="add-icon" title="Add">&#43;</span>&nbsp; Add a new customer!
+                    </a>
+                </div>
+            </form>
+
+            <div class="divider"></div>
+
+            <div class="d-flex flex-wrap justify-content-center">
+                <!-- Customer 1 -->
+                <div class="customer-card">
+                    <div class="customer-card-header">
+                        <h3>Meet Hadvaidya</h3>
+                    </div>
+                    <div class="customer-card-body">
+                        <p><strong>Phone:</strong> 2299516789</p>
+                        <p><strong>Email:</strong> meeth@gmail.com</p>
+                        <p><strong>Address:</strong> 51 First ave, Welland, ON, L2G 2O1</p>
+                    </div>
+                    <div class="customer-card-footer">
+                        <a href="edit-customer.html" data-toggle="tooltip" data-placement="top"
+                            title="Edit Customer Information">
+                            <span class="edit-icon" title="Edit">&#9998;</span>Edit
+                        </a>
+                        <a href="equipment-index.html" data-toggle="tooltip" data-placement="top"
+                            title="View equipment associated with the customer">
+                            <span class="edit-icon" title="Equipment">&#128296;</span>Equipment
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Customer 2 -->
+                <div class="customer-card">
+                    <div class="customer-card-header">
+                        <h3>Hetav Panchal</h3>
+                    </div>
+                    <div class="customer-card-body">
+                        <p><strong>Phone:</strong> 9067465321</p>
+                        <p><strong>Email:</strong> hpanchal@gmail.com</p>
+                        <p><strong>Address:</strong> 78 College park dr, Welland, ON, L2G 3P8</p>
+                    </div>
+                    <div class="customer-card-footer">
+                        <a href="edit-customer.html" data-toggle="tooltip" data-placement="top"
+                            title="Edit Customer Information">
+                            <span class="edit-icon" title="Edit">&#9998;</span>Edit
+                        </a>
+                        <a href="equipment-index.html" data-toggle="tooltip" data-placement="top"
+                            title="View equipment associated with the customer">
+                            <span class="edit-icon" title="Equipment">&#128296;</span>Equipment
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Customer 3 -->
+                <div class="customer-card">
+                    <div class="customer-card-header">
+                        <h3>Ross</h3>
+                    </div>
+                    <div class="customer-card-body">
+                        <p><strong>Phone:</strong> 2063465312</p>
+                        <p><strong>Email:</strong> ross@gmail.com</p>
+                        <p><strong>Address:</strong> 18 Niagara st, Welland, ON, L2G 5H1</p>
+                    </div>
+                    <div class="customer-card-footer">
+                        <a href="edit-customer.html" data-toggle="tooltip" data-placement="top"
+                            title="Edit Customer Information">
+                            <span class="edit-icon" title="Edit">&#9998;</span>Edit
+                        </a>
+                        <a href="equipment-index.html" data-toggle="tooltip" data-placement="top"
+                            title="View equipment associated with the customer">
+                            <span class="edit-icon" title="Equipment">&#128296;</span>Equipment
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Customer 4 -->
+                <div class="customer-card">
+                    <div class="customer-card-header">
+                        <h3>Sumandeep Kaur</h3>
+                    </div>
+                    <div class="customer-card-body">
+                        <p><strong>Phone:</strong> 3458769013</p>
+                        <p><strong>Email:</strong> skaur@gmail.com</p>
+                        <p><strong>Address:</strong> 31 Woodlawn dr, Welland, ON, L2G 2T9</p>
+                    </div>
+                    <div class="customer-card-footer">
+                        <a href="edit-customer.html" data-toggle="tooltip" data-placement="top"
+                            title="Edit Customer Information">
+                            <span class="edit-icon" title="Edit">&#9998;</span>Edit
+                        </a>
+                        <a href="equipment-index.html" data-toggle="tooltip" data-placement="top"
+                            title="View equipment associated with the customer">
+                            <span class="edit-icon" title="Equipment">&#128296;</span>Equipment
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Customer 5 -->
+                <div class="customer-card">
+                    <div class="customer-card-header">
+                        <h3>Sumiran Bhandari</h3>
+                    </div>
+                    <div class="customer-card-body">
+                        <p><strong>Phone:</strong> 22680799786</p>
+                        <p><strong>Email:</strong> sbhandari@gmail.com</p>
+                        <p><strong>Address:</strong> 311 Quaker rd, Welland, ON, L2G 5A5</p>
+                    </div>
+                    <div class="customer-card-footer">
+                        <a href="edit-customer.html" data-toggle="tooltip" data-placement="top"
+                            title="Edit Customer Information">
+                            <span class="edit-icon" title="Edit">&#9998;</span>Edit
+                        </a>
+                        <a href="equipment-index.html" data-toggle="tooltip" data-placement="top"
+                            title="View equipment associated with the customer">
+                            <span class="edit-icon" title="Equipment">&#128296;</span>Equipment
+                        </a>
+                    </div>
+                </div>
+                <div class="customer-card">
+                    <div class="customer-card-header">
+                        <h3>Jane Doe</h3>
+                    </div>
+                    <div class="customer-card-body">
+                        <p><strong>Phone:</strong> 1234567890</p>
+                        <p><strong>Email:</strong> jane.doe@example.com</p>
+                        <p><strong>Address:</strong> 123 Elm St, Welland, ON, L2G 4N5</p>
+                    </div>
+                    <div class="customer-card-footer">
+                        <a href="edit-customer.html" data-toggle="tooltip" data-placement="top"
+                            title="Edit Customer Information">
+                            <span class="edit-icon" title="Edit">&#9998;</span>Edit
+                        </a>
+                        <a href="equipment-index.html" data-toggle="tooltip" data-placement="top"
+                            title="View equipment associated with the customer">
+                            <span class="edit-icon" title="Equipment">&#128296;</span>Equipment
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-bottom">
+            <p>
+                &copy; 2023 Emma's Small Engine. All rights reserved.
+            </p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize Bootstrap tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+
+                // homePage.html (and other pages)
+                document.addEventListener("DOMContentLoaded", function () {
+            // Check the user role
+            var userRole = localStorage.getItem("userRole");
+            var userRoleLabel = document.getElementById("userRoleLabel");
+            userRoleLabel.textContent = userRole;
+            // Implement your role-based logic here
+            switch (userRole) {
+                case "admin":
+                    // Admin-specific logic
+                    break;
+                case "sales":
+                    // Sales-specific logic
+                    break;
+                case "technician":
+                    // Technician-specific logic
+                    // Get the element representing the "New Customer" card
+                    var newCustomerCard = document.getElementById("newCustomerBtn");
+                    var existingCustomerCard = document.getElementById("existingCustomerBtn");
+                    var reportsBtnCard = document.getElementById("reportsBtn");
+                    // Get the element representing Navigation option in the NAVBAR
+                    var navBarReports = document.getElementById("navBarReports");
+                    var navBarCustomer = document.getElementById("navBarCustomer");
+                    // Disappear the card by setting its display property to "none"
+                    newCustomerCard.style.display = "none";
+                    existingCustomerCard.style.display = "none";
+                    reportsBtnCard.style.display = "none";
+                    // Disappear the Navigation option in the NAVBAR by setting its display property to "none"
+                    navBarReports.style.display = "none";
+                    navBarCustomer.style.display = "none";
+                    break;
+                default:
+                    // Redirect to the index page if no valid role is found
+                    window.location.href = "index.html";
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

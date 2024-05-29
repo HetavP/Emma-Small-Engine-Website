@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturer Report</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global Styles */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        header {
+            background: #425c43;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            margin-top: 6px;
+            /* font-family: 'Times New Roman', Times, serif; */
+        }
+
+        /* CSS for Navbar */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 180px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 25px;
+            margin: 0 20px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        .logout-link {
+            margin-right: 20px;
+            font-size: 20px;
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .logout-link:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        /* CSS for main */
+        main {
+            background-color: #ffffff;
+            /* padding: 20px; */
+            text-align: center;
+            border-radius: 25px;
+            margin: 20px auto;
+            width: 85%;
+            position: relative;
+        }
+
+        h1,
+        .print-title {
+            color: #425c43;
+            margin: 38px;
+            /* margin: 20px; */
+            text-align: center;
+
+        }
+
+        h2,
+        .print-title {
+            font-size: 28px;
+        }
+
+        .company-address {
+            font-size: 16px;
+            font-weight: normal;
+            margin-top: 5px;
+        }
+
+        .divider {
+            width: 90%;
+            border: none;
+            border-top: 3px solid #425c43;
+            border-radius: 5px;
+            margin: 20px auto;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #425c43;
+            padding: 10px;
+            text-align: left;
+            width: 33.33%;
+        }
+
+        th {
+            background-color: #425c43;
+            color: #fff;
+        }
+
+        form {
+            height: 80px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .selector {
+            display: block;
+            margin: 20px;
+        }
+
+        label {
+
+            margin-bottom: 5px;
+            font-size: 22px;
+            font-weight: 200;
+            color: #425c43;
+        }
+
+        select {
+            width: 190px;
+            height: 40px;
+            border: 2px solid #425c43;
+            border-radius: 5px;
+        }
+
+        input[type="Submit"],
+        .return {
+            cursor: pointer;
+            width: 120px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #425c43;
+            color: #fff;
+        }
+
+        .return {
+            background-color: #5c2207;
+        }
+
+        .return a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .print-button {
+            cursor: pointer;
+            width: 120px;
+            padding: 5px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #printable-section,
+            #printable-section * {
+                visibility: visible;
+            }
+
+            #printable-section {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            /* Style for print */
+            #printable-section .print-title {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header id="printable-section">
+        <div class="logo">
+            <img alt="Logo" src="photos/Emma_logo.jpg">
+        </div>
+        <div class="logo-text">
+            <h2>Emma's Small Engine&nbsp;<div class="company-address">
+                    123 Main Street, Cityville, State 12345<br>
+                    Phone: (123) 456-7890<br>
+                    Email: emmas@company.com
+                </div>
+            </h2>
+
+        </div>
+    </header>
+    <h1>Manufacturer Report</h1>
+
+    <div class="divider"></div>
+
+    <main>
+        <!-- Form with dropdown menu for selecting products -->
+        <form>
+            <div class="selector">
+                <label for="productSelector">Select Product:</label>
+                <select id="productSelector" name="product">
+                    <option>Select a Product</option>
+                    <option value="product1">Self Propelled Lawn Mover</option>
+                    <option value="product2">Leaf Blower</option>
+                    <option value="product3">String Trimmer</option>
+                    <!-- Add more products as needed -->
+                </select>
+            </div>
+            <input type="submit" value="Generate Report">
+            <button class="print-button" onclick="printReport()">Print Report</button>
+            <button class="return"><a href="reports.html">Return</a></button>
+        </form>
+
+        <!-- Manufacturer Report Table -->
+        <div id="printable-section">
+            <div id="print-title" class="print-title"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Quantity</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="reportTableBody">
+                    <!-- Report data will be displayed here -->
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody id="costTableBody">
+                    <!-- Cost data will be displayed here -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align: left; font-weight: bold;">Total(including TAX):</td>
+                        <td id="totalCost"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        // Sample data for demonstration
+        const reportData = {
+            product1: [
+                { action: 'Manufactured', quantity: 100, date: '2023-01-01' },
+                { action: 'Dispatched', quantity: 80, date: '2023-01-05' },
+                { action: 'Received', quantity: 80, date: '2023-01-10' }
+            ],
+            product2: [
+                { action: 'Manufactured', quantity: 50, date: '2023-01-02' },
+                { action: 'Dispatched', quantity: 40, date: '2023-01-06' },
+                { action: 'Received', quantity: 40, date: '2023-01-11' }
+            ],
+            product3: [
+                { action: 'Manufactured', quantity: 75, date: '2023-01-03' },
+                { action: 'Dispatched', quantity: 60, date: '2023-01-08' },
+                { action: 'Received', quantity: 60, date: '2023-01-13' }
+            ]
+            // Add more products and their data as needed
+        };
+
+        // Function to calculate the total cost for one and quantity received
+        function calculateTotalCost(productData) {
+            const costForOne = 10;  // Replace with your actual cost for one
+            const totalCostForOne = productData.reduce((sum, entry) => sum + costForOne, 0);
+            const totalCostForQuantity = productData.reduce((sum, entry) => sum + costForOne * entry.quantity, 0);
+            return { totalCostForOne, totalCostForQuantity };
+        }
+
+        // Function to generate the total cost table based on the selected product
+        function generateTotalCostTable() {
+            const selectedProduct = document.getElementById('productSelector').value;
+            const costTableBody = document.getElementById('costTableBody');
+            costTableBody.innerHTML = ''; // Clear existing data
+
+            if (reportData[selectedProduct]) {
+                const { totalCostForOne, totalCostForQuantity } = calculateTotalCost(reportData[selectedProduct]);
+
+                // First row
+                const totalCostRow = document.createElement('tr');
+                var prodName = "";
+                if(selectedProduct == "product1"){
+                    prodName = "Self Propelled Lawn Mover";
+                }
+                else if(selectedProduct == "product2"){
+                    prodName = "Leaf Blower";
+                }
+                else if(selectedProduct == "product3"){
+                    prodName = "String Trimmer";
+                }
+                totalCostRow.innerHTML = `<td>${prodName}</td><td>1</td><td>$${totalCostForOne}</td>`;
+                costTableBody.appendChild(totalCostRow);
+
+                // Second row
+                const productRow = document.createElement('tr');
+                productRow.innerHTML = `<td>${prodName}</td><td>${reportData[selectedProduct][2].quantity}</td><td>$${totalCostForQuantity}</td>`;
+                document.getElementById('totalCost').textContent = `$${totalCostForQuantity}`;
+                costTableBody.appendChild(productRow);
+            }
+        }
+
+        // Function to generate the report based on the selected product
+        function generateReport() {
+            const selectedProduct = document.getElementById('productSelector').value;
+            const reportTableBody = document.getElementById('reportTableBody');
+            const printTitle = document.getElementById('print-title');
+            reportTableBody.innerHTML = ''; // Clear existing data
+
+            if (reportData[selectedProduct]) {
+                printTitle.textContent = `Manufacturer Report`;
+                reportData[selectedProduct].forEach(entry => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${entry.action}</td><td>${entry.quantity}</td><td>${entry.date}</td>`;
+                    reportTableBody.appendChild(row);
+                });
+
+                // Call the generateTotalCostTable function
+                generateTotalCostTable();
+            } else {
+                printTitle.textContent = 'Manufacturer Report';
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="3">No data available for the selected product</td>';
+                document.getElementById('totalCost').textContent = `$0`;
+                reportTableBody.appendChild(row);
+            }
+        }
+
+        // Event listener for form submission
+        document.querySelector('form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+            generateReport();
+        });
+
+        // Initial report generation on page load
+        generateReport();
+
+        function printReport() {
+            const selectedProduct = document.getElementById('productSelector').value;
+            const printTitle = document.getElementById('print-title');
+            printTitle.textContent = `Manufacturer Report`;
+            window.print();
+        }
+    </script>
+
+</body>
+
+</html>

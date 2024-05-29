@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Equipment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global Styles */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        /* Header Styles */
+        header {
+            background: #425c43;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        /* CSS for Navbar */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            /* Center the links */
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 180px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 25px;
+            margin: 0 20px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        .logout-link {
+            margin-right: 20px;
+            font-size: 20px;
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .logout-link:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+
+        /* Dropdown styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: fixed;
+            background-color: #ffffff;
+            min-width: 160px;
+            z-index: 1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            font-size: 22px;
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: bolder;
+            font-family: sans-serif;
+        }
+
+        .dropdown-content a:hover {
+            color: #425c43;
+            text-decoration: underline;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Main */
+        main {
+            background-color: #ffffff;
+            /* padding: 20px; */
+            text-align: center;
+            border-radius: 25px;
+            margin: 20px auto;
+            width: 85%;
+        }
+
+        h2 {
+            color: #425c43;
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        /* Footer styles */
+        footer {
+            margin-top: auto;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            background: #425c43;
+            color: #ffffff;
+            padding: 15px 0;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .footer-bottom::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+        }
+
+
+        .container {
+            background-color: #ffffff;
+            padding: 0px;
+            text-align: center;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 850px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 10px;
+            color: #555;
+            font-size: 18px;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+
+        select {
+            width: 80%;
+        }
+
+        /* CSS for Buttons and Inputs */
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+
+        select {
+            width: 80%;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+        }
+
+        button[type="button"] {
+            background-color: #ff3333;
+            /* Change this color to red */
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="button"]:hover {
+            background-color: #cc0000;
+            /* Change this color to a darker red on hover */
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            background-color: #425c43;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #2E8B57;
+        }
+
+        input[type="button"] {
+            background-color: #425c43;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="button"]:hover {
+            background-color: #2E8B57;
+        }
+
+
+        .test-button-container {
+            position: fixed;
+            top: 100px;
+            /* Adjust this value based on your header height */
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #testButton {
+            background-color: #425c43;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #testButton:hover {
+            background-color: #2E8B57;
+        }
+
+
+        /* CSS for popups */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-content {
+            background: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-content h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .popup-content input[type="text"],
+        .popup-content select {
+            width: 80%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            margin: 5px 0;
+            transition: border-color 0.3s ease;
+        }
+
+        .popup-content input[type="text"]:focus {
+            border-color: #4CAF50;
+        }
+
+        .popup-content button {
+            background-color: #425c43;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .popup-content button:hover {
+            background-color: #2E8B57;
+        }
+
+        .popup-content .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img alt="Logo" src="photos/Emma_logo.jpg">
+        </div>
+        <div class="logo-text">
+            <h3>Emma's Small Engine</h3>
+        </div>
+        <div class="nav-links">
+            <a href="homePage.html">Home</a>
+            <!-- <a href="repair-form.html">Repair Report</a> -->
+            <div class="dropdown" id="navBarCustomer">
+                <a href="customer-index.html">Customer</a>
+                <div class="dropdown-content">
+                    <a href="add-customer.html">➕ Add New Customer</a>
+                    <a href="customer-index.html">📖 View Existing Customer</a>
+                </div>
+            </div>
+            <a href="repair-record.html">Repair Records</a>
+            <a href="reports.html" id="navBarReports">Reports</a>
+
+        </div>
+        <span id="userRoleLabel" class="logout-link" style="font-size: 20px; color: white;"></span>
+        <a href="#" class="logout-link" data-toggle="tooltip" data-placement="top" 
+        title="➕ under color is to add a new color.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Edit under color is to edit the selected color.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        ➕ under Category is to add a new category.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Edit under Category is to edit the selected category.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        ➕ under Manufacturer is to add new manufacturer.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       
+        Edit under Manufacturer is to edit the selected manufacturer.">Help?</a>
+
+        <a class="logout-link" href="index.html">Logout</a>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Edit Equipment Details</h2>
+            <form id="editCustomer" action="updateCustomer.php" method="post">
+                <div class="form-group">
+                    <label for="name">Equipment Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your equipment name" required>
+                </div>
+                <div class="form-group">
+                    <label for="model">Model:</label>
+                    <input type="text" id="model" name="Model" placeholder="Your model name" required>
+                </div>
+                <div class="form-group">
+                    <label for="serial-num">Serial Num:</label>
+                    <input type="text" id="serial-num" name="serial-num" placeholder="xxxxxxxxxxxxxxx" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="colour">Colour:</label>
+                    <select id="colour" name="colour" required>
+                        <option value="Red">Red</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Green">Green</option>
+                        <option value="Yellow">Yellow</option>
+                    </select>
+                    <button id="show-color-popup" data-toggle="tooltip" data-placement="top"
+                        title="Show Color Popup">➕</button>
+                    <button id="edit-colour" data-toggle="tooltip" data-placement="top" title="Edit Color">Edit</button>
+
+                    <div id="color-popup" class="popup">
+                        <div class="popup-content">
+                            <span id="close-color-popup" class="close-popup">&times;</span>
+                            <h2>Add a color:</h2>
+                            <input type="text" id="input-color-text">
+                            <button id="submit-color-button">Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required>
+                        <option value="Lawn Mower">Lawn Mower</option>
+                        <option value="Leaf Blower">Leaf Blower</option>
+                        <option value="Chainsaw">Chainsaw</option>
+                        <option value="Generator">Generator</option>
+                    </select>
+                    <button id="show-category-popup" data-toggle="tooltip" data-placement="top"
+                        title="Show Category Popup">➕</button>
+                    <button id="edit-category" data-toggle="tooltip" data-placement="top"
+                        title="Edit Category">Edit</button>
+                    <div id="category-popup" class="popup">
+                        <div class="popup-content">
+                            <span id="close-category-popup" class="close-popup">&times;</span>
+                            <h2>Add a category:</h2>
+                            <input type="text" id="input-category-text">
+                            <button id="submit-category-button">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="manufacturer">Manufacturer:</label>
+                    <select id="manufacturer" name="manufacturer" required>
+                        <option value="alpha">Alpha</option>
+                        <option value="beta">Beta</option>
+                        <option value="charlie">Charlie</option>
+                        <option value="delta">Delta</option>
+                    </select>
+                    <button id="show-manufacturer-popup" data-toggle="tooltip" data-placement="top"
+                        title="Show Manufacturer Popup">➕</button>
+                    <button id="edit-manufacturer" data-toggle="tooltip" data-placement="top"
+                        title="Edit Manufacturer">Edit</button>
+                    <div id="manufacturer-popup" class="popup">
+                        <div class="popup-content">
+                            <span id="close-manufacturer-popup" class="close-popup">&times;</span>
+                            <h2>Add a manufacturer:</h2>
+                            <input type="text" id="input-manufacturer-text">
+                            <button id="submit-manufacturer-button">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description:</label><br>
+                    <textarea cols="50" id="description" name="description" required rows="4"
+                        placeholder="anything about product"></textarea>
+                </div>
+                <div class="button-container">
+                    <input type="submit" value="Update Info" onclick="document.location='equipment-index.html'"
+                    data-toggle="tooltip" data-placement="top" title="Any changes in existing equipment data will be updated in records">
+                    <input type="reset" value="&#8635;Reset" onclick="resetForm()" data-toggle="tooltip"
+                        data-placement="top" title="Reset the Form">
+                    <button type="button" onclick="document.location='equipment-index.html'" data-toggle="tooltip"
+                        data-placement="top"
+                        title="Any changes will be discarded and user will be directed back">&#10799;Discard</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-bottom">
+            <p>
+                &copy; 2023 Emma's Small Engine. All rights reserved.
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize Bootstrap tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+    <script>
+        // homePage.html (and other pages)
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check the user role
+            var userRole = localStorage.getItem("userRole");
+            var userRoleLabel = document.getElementById("userRoleLabel");
+            userRoleLabel.textContent = userRole;
+            // Implement your role-based logic here
+            switch (userRole) {
+                case "admin":
+                    // Admin-specific logic
+                    break;
+                case "sales":
+                    // Sales-specific logic
+                    break;
+                case "technician":
+                    // Technician-specific logic
+                    // Get the element representing the "New Customer" card
+                    var newCustomerCard = document.getElementById("newCustomerBtn");
+                    var existingCustomerCard = document.getElementById("existingCustomerBtn");
+                    var reportsBtnCard = document.getElementById("reportsBtn");
+                    // Get the element representing Navigation option in the NAVBAR
+                    var navBarReports = document.getElementById("navBarReports");
+                    var navBarCustomer = document.getElementById("navBarCustomer");
+                    // Disappear the card by setting its display property to "none"
+                    newCustomerCard.style.display = "none";
+                    existingCustomerCard.style.display = "none";
+                    reportsBtnCard.style.display = "none";
+                    // Disappear the Navigation option in the NAVBAR by setting its display property to "none"
+                    navBarReports.style.display = "none";
+                    navBarCustomer.style.display = "none";
+                    break;
+                default:
+                    // Redirect to the index page if no valid role is found
+                    window.location.href = "index.html";
+            }
+        });
+
+    </script>
+
+
+    <script>
+        ///////////////////////////////////////////////for the presentation purposes//////////////////////////////////////////////////////////////
+        // Function to set test values for the entire form
+        document.addEventListener('DOMContentLoaded', function () {
+            // Your method or code to be executed when the DOM is ready
+            setOriginalValues();
+        });
+        function setOriginalValues() {
+            var form = document.getElementById("editCustomer");
+
+            // Set test values for each form element
+            form.elements["name"].value = "Chainsaw";
+            form.elements["model"].value = "Yamaha";
+            form.elements["serial-num"].value = "1234567890";
+            form.elements["colour"].selectedIndex = 1; // Select the second color option
+            form.elements["category"].selectedIndex = 2; // Select the third category option
+            form.elements["manufacturer"].selectedIndex = 1; // Select the second manufacturer option
+            form.elements["description"].value = "Has a  scratch on the facemask";
+
+        }
+
+        function setTestValues() {
+            var form = document.getElementById("editCustomer");
+
+            // Set test values for each form element
+            form.elements["name"].value = "Test Equipment";
+            form.elements["model"].value = "Test Model";
+            form.elements["serial-num"].value = "0000000000";
+            form.elements["colour"].selectedIndex = 3; // Select the second color option
+            form.elements["category"].selectedIndex = 3; // Select the third category option
+            form.elements["manufacturer"].selectedIndex = 3; // Select the second manufacturer option
+            form.elements["description"].value = "Test Description";
+
+        }
+        ///////////////////////////////////////////////for the presentation purposes//////////////////////////////////////////////////////////////
+
+        // Function to reset form fields to their original values
+        function resetForm() {
+            // Get the form element
+            var form = document.getElementById("editCustomer");
+
+            // Loop through each form element
+            for (var i = 0; i < form.elements.length; i++) {
+                var element = form.elements[i];
+
+                // Check if the element is an input field or select element
+                if (element.type === "text" || element.type === "password") {
+                    // Set the value to the original value stored in the data-original-value attribute
+                    element.value = element.getAttribute("data-original-value");
+                } else if (element.type === "select-one") {
+                    // Set the selected index to the original value stored in the data-original-value attribute
+                    element.selectedIndex = element.getAttribute("data-original-value");
+                }
+            }
+        }
+        //////////////////////////////////////// test for editing options//////////////////////////////////////////////
+        // Edit Functionality for Color
+        /////////////// ////////////// test for editing options//////////////////////////////////////////////
+        // Edit Functionality for Category
+        const categorySelect = document.getElementById("category");
+        const editCategoryButton = document.getElementById("edit-category"); // Updated ID
+
+        editCategoryButton.addEventListener("click", function () {
+            const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+
+            if (selectedOption) {
+                const newValue = prompt("Edit the selected category:", selectedOption.value);
+
+                if (newValue !== null) {
+                    selectedOption.value = newValue;
+                    selectedOption.text = newValue;
+                }
+            }
+        });
+
+        // Edit Functionality for Manufacturer
+        const manufacturerSelect = document.getElementById("manufacturer");
+        const editManufacturerButton = document.getElementById("edit-manufacturer"); // Updated ID
+
+
+        editManufacturerButton.addEventListener("click", function () {
+            const selectedOption = manufacturerSelect.options[manufacturerSelect.selectedIndex];
+
+            if (selectedOption) {
+                const newValue = prompt("Edit the selected manufacturer:", selectedOption.value);
+
+                if (newValue !== null) {
+                    selectedOption.value = newValue;
+                    selectedOption.text = newValue;
+                }
+            }
+        });
+        /////////////////////////////////// test for editing options//////////////////////////////////////////////
+        //color declare
+        const showColorPopupButton = document.getElementById("show-color-popup");
+        const colorPopup = document.getElementById("color-popup");
+        const closeColorPopupButton = document.getElementById("close-color-popup");
+        const inputColorText = document.getElementById("input-color-text");
+        const submitColorButton = document.getElementById("submit-color-button");
+        const colorDropdown = document.getElementById("colour");
+        //category declare
+        const showCategoryPopupButton = document.getElementById("show-category-popup");
+        const categoryPopup = document.getElementById("category-popup");
+        const closeCategoryPopupButton = document.getElementById("close-category-popup");
+        const inputCategoryText = document.getElementById("input-category-text");
+        const submitCategoryButton = document.getElementById("submit-category-button");
+        //manufactorer declare
+        const showManufacturerPopupButton = document.getElementById("show-manufacturer-popup");
+        const manufacturerPopup = document.getElementById("manufacturer-popup");
+        const closeManufacturerPopupButton = document.getElementById("close-manufacturer-popup");
+        const inputManufacturerText = document.getElementById("input-manufacturer-text");
+        const submitManufacturerButton = document.getElementById("submit-manufacturer-button");
+        const manufacturerDropdown = document.getElementById("manufacturer");
+        // Show the color popup when the "+" button is clicked
+        showColorPopupButton.addEventListener("click", () => {
+            colorPopup.style.display = "block";
+        });
+
+        // Close the color popup when the close button is clicked
+        closeColorPopupButton.addEventListener("click", () => {
+            colorPopup.style.display = "none";
+        });
+
+        colorPopup.addEventListener("click", (event) => {
+            if (event.target === colorPopup) {
+                colorPopup.style.display = "none";
+            }
+        });
+        //Add option
+        submitColorButton.addEventListener("click", () => {
+            const userInput = inputColorText.value.trim();
+            if (userInput !== "") {
+                const newOption = document.createElement("option");
+                newOption.value = userInput;
+                newOption.text = userInput;
+
+                colorDropdown.appendChild(newOption);
+                newOption.selected = true;
+                newOption.selected = true;
+                colorPopup.style.display = "none";
+            } else {
+                alert("Please enter a color name.");
+            }
+        });
+        // Show and close the color popup when the "+" button is clicked
+        showCategoryPopupButton.addEventListener("click", () => {
+            categoryPopup.style.display = "block";
+        });
+
+        closeCategoryPopupButton.addEventListener("click", () => {
+            categoryPopup.style.display = "none";
+        });
+
+        categoryPopup.addEventListener("click", (event) => {
+            if (event.target === categoryPopup) {
+                categoryPopup.style.display = "none";
+            }
+        });
+        //Add option
+        submitCategoryButton.addEventListener("click", () => {
+            const userInput = inputCategoryText.value.trim();
+            if (userInput !== "") {
+                const newOption = document.createElement("option");
+                newOption.value = userInput;
+                newOption.text = userInput;
+
+                const categoryDropdown = document.getElementById("category");
+                categoryDropdown.appendChild(newOption);
+
+                newOption.selected = true;
+
+                categoryPopup.style.display = "none";
+            } else {
+                alert("Please enter a category name.");
+            }
+        });
+        // Show and close the color popup when the "+" button is clicked
+        showManufacturerPopupButton.addEventListener("click", () => {
+            manufacturerPopup.style.display = "block";
+        });
+
+        closeManufacturerPopupButton.addEventListener("click", () => {
+            manufacturerPopup.style.display = "none";
+        });
+
+        manufacturerPopup.addEventListener("click", (event) => {
+            if (event.target === manufacturerPopup) {
+                manufacturerPopup.style.display = "none";
+            }
+        });
+        //Add option
+        submitManufacturerButton.addEventListener("click", () => {
+            const userInput = inputManufacturerText.value.trim();
+            if (userInput !== "") {
+                const newOption = document.createElement("option");
+                newOption.value = userInput;
+                newOption.text = userInput;
+
+                const manufacturerDropdown = document.getElementById("manufacturer");
+                manufacturerDropdown.appendChild(newOption);
+
+                newOption.selected = true;
+
+                manufacturerPopup.style.display = "none";
+            } else {
+                alert("Please enter a manufacturer name.");
+            }
+        });
+    </script>
+</body>
+
+</html>

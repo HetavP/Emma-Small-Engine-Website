@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Reports</title>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.js"></script>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global Styles */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        header {
+            background: #425c43;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            margin-top: 6px;
+            /* font-family: 'Times New Roman', Times, serif; */
+        }
+
+        /* CSS for Navbar */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 180px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 25px;
+            margin: 0 20px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        .logout-link {
+            margin-right: 20px;
+            font-size: 20px;
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .logout-link:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        /* CSS for main */
+        main {
+            background-color: #ffffff;
+            /* padding: 20px; */
+            text-align: center;
+            border-radius: 25px;
+            margin: 20px auto;
+            width: 85%;
+            position: relative;
+        }
+
+        h1,
+        h3,
+        .print-title {
+            color: #425c43;
+            margin: 38px;
+            /* margin: 20px; */
+            text-align: center;
+
+        }
+
+        h2,
+        .print-title {
+            font-size: 28px;
+        }
+
+        .company-address {
+            font-size: 16px;
+            font-weight: normal;
+            margin-top: 5px;
+        }
+
+        .divider {
+            width: 90%;
+            border: none;
+            border-top: 3px solid #425c43;
+            border-radius: 5px;
+            margin: 20px auto;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            table-layout: fixed;
+        }
+
+        th,
+        td {
+            border: 1px solid #425c43;
+            padding: 10px;
+            text-align: left;
+            width: 33.33%;
+            /* Set the width for each column (adjust as needed) */
+            box-sizing: border-box;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #425c43;
+            color: #fff;
+        }
+
+        tfoot {
+            font-weight: bold;
+        }
+
+
+        form {
+            height: 80px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .selector {
+            display: block;
+            margin: 20px;
+        }
+
+        label {
+
+            margin-bottom: 5px;
+            font-size: 22px;
+            font-weight: 200;
+            color: #425c43;
+        }
+
+        select {
+            width: 190px;
+            height: 40px;
+            border: 2px solid #425c43;
+            border-radius: 5px;
+        }
+
+        input[type="Submit"],
+        .return {
+            cursor: pointer;
+            width: 120px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #425c43;
+            color: #fff;
+        }
+
+        input[type="Submit"] {
+            width: 140px;
+        }
+
+        .return {
+            background-color: #5c2207;
+        }
+
+        .return a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .print-button {
+            cursor: pointer;
+            width: 120px;
+            padding: 5px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #printable-section,
+            #printable-section * {
+                visibility: visible;
+            }
+
+            #printable-section {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            /* Style for print */
+            #printable-section .print-title {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header id="printable-section">
+        <div class="logo">
+            <img alt="Logo" src="photos/Emma_logo.jpg">
+        </div>
+        <div class="logo-text">
+            <h2>Emma's Small Engine&nbsp;<div class="company-address">
+                    123 Main Street, Cityville, State 12345<br>
+                    Phone: (123) 456-7890<br>
+                    Email: emmas@company.com
+                </div>
+            </h2>
+
+        </div>
+    </header>
+    <h1>Weekly Review</h1>
+
+    <div class="divider"></div>
+
+    <main>
+
+        <!-- Form with date range picker for selecting different weeks -->
+        <form>
+            <div class="selector">
+                <label for="dateRangePicker">Select Week Range:</label>
+                <input type="text" id="dateRangePicker" name="dateRange" />
+            </div>
+            <input type="submit" value="Generate Report">
+            <button class="print-button" onclick="printReport()">Print Report</button>
+            <button class="return"><a href="reports.html">Return</a></button>
+        </form>
+        <div id="printable-section">
+            <div id="print-title" class="print-title"></div>
+            <h3>Total Product Sales</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Type</th>
+                        <th>Quantity Sold</th>
+                        <th>Total Sales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Self Propelled Lawn Mover</td>
+                        <td>100</td>
+                        <td>$10,000</td>
+                    </tr>
+                    <tr>
+                        <td>Leaf Blower</td>
+                        <td>50</td>
+                        <td>$5,000</td>
+                    </tr>
+                    <tr>
+                        <td>String Trimmer</td>
+                        <td>75</td>
+                        <td>$7,500</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align: left; font-weight: bold;">Total:</td>
+                        <td>$22,500</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <h3>Total Repair Sales</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Repair Type</th>
+                        <th>Quantity Sold</th>
+                        <th>Total Sales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Repair-Self Propelled Lawn Mover</td>
+                        <td>10</td>
+                        <td>$2,000</td>
+                    </tr>
+                    <tr>
+                        <td>Repair-Leaf Blower</td>
+                        <td>5</td>
+                        <td>$1,000</td>
+                    </tr>
+                    <tr>
+                        <td>Repair-String Trimmer</td>
+                        <td>8</td>
+                        <td>$1,600</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align: left; font-weight: bold;">Total:</td>
+                        <td>$4,600</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <h3>Total Inventory Sales</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity Sold</th>
+                        <th>Total Sales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Self Propelled Lawn Mover</td>
+                        <td>20</td>
+                        <td>$2,000</td>
+                    </tr>
+                    <tr>
+                        <td>Leaf Blower</td>
+                        <td>15</td>
+                        <td>$1,500</td>
+                    </tr>
+                    <tr>
+                        <td>String Trimmer</td>
+                        <td>25</td>
+                        <td>$2,500</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align: left; font-weight: bold;">Total:</td>
+                        <td>$6,000</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <h3>Total Parts Ordered</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Part Name</th>
+                        <th>Quantity Ordered</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Self Propelled Lawn Mover</td>
+                        <td>50</td>
+                        <td>$500</td>
+                    </tr>
+                    <tr>
+                        <td>Leaf Blower</td>
+                        <td>30</td>
+                        <td>$300</td>
+                    </tr>
+                    <tr>
+                        <td>String Trimmer</td>
+                        <td>40</td>
+                        <td>$400</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align: left; font-weight: bold;">Total:</td>
+                        <td>$1,200</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <h3>Loss and Profit</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th></th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">Sales</td>
+                        <td>$22,500</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Repair</td>
+                        <td>$2,600</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Parts Ordered</td>
+                        <td>-$1,200</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Inventory</td>
+                        <td>-$4,000</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align: left; font-weight: bold;">Total Week's Profit/Loss:</td>
+                        <td>$19,900</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        </div>
+    </main>
+    <script>
+        // Initialize the date range picker
+        $(function () {
+            $('#dateRangePicker').daterangepicker({
+                opens: 'left', // You can change the position of the calendar
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
+            });
+        });
+
+        function printReport() {
+            const selectedWeekRange = $('#dateRangePicker').val();
+            const printTitle = document.getElementById('print-title');
+            printTitle.textContent = `Weekly Review - ${selectedWeekRange}`;
+            window.print();
+        }
+    </script>
+</body>
+
+</html>

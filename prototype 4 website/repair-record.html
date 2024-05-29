@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repairs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a72921f6c5.js" crossorigin="anonymous"></script>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global Styles */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        /* Header Styles */
+        header {
+            background: #425c43;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            margin-top: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            /* Center the links */
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 180px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 25px;
+            margin: 0 20px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        .logout-link {
+            margin-right: 20px;
+            font-size: 20px;
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .logout-link:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        /* Dropdown styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: fixed;
+            background-color: #ffffff;
+            min-width: 160px;
+            z-index: 1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            font-size: 22px;
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: bolder;
+            font-family: sans-serif;
+        }
+
+        .dropdown-content a:hover {
+            color: #425c43;
+            text-decoration: underline;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        main {
+            background-color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 25px;
+            margin: 20px auto;
+            width: 85%;
+        }
+
+        .banner-img {
+            background-color: #425c43;
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            /* margin: 25px;*/
+            width: 102%;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .banner-img h4 {
+            font-size: 25px;
+
+        }
+
+        .card-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .customer-card {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 20px;
+            width: calc(30% - 20px);
+            /* Adjust the width as needed */
+            box-sizing: border-box;
+        }
+
+        .customer-card-header {
+            background-color: #425c43;
+            color: #ffffff;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+        }
+
+        .customer-card-body {
+            padding: 20px;
+        }
+
+        .customer-card-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .edit-icon {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+
+        .add-customer-icon {
+            font-size: 24px;
+            justify-content: start;
+            margin-top: 17px;
+        }
+
+        .customer-card-footer a {
+            color: #199696;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .customer-card-footer a:hover {
+            color: #425c43;
+            text-decoration: underline;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .form-container label,
+        .form-container input[type="text"] {
+            width: 100%;
+            margin: 10px;
+
+        }
+
+        .form-container form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 12px;
+        }
+
+        .form-group {
+            width: 100%;
+            font-size: 25px;
+        }
+
+        form input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 3px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        select {
+            margin-left: 10px;
+        }
+
+        form button[type="submit"] {
+            background-color: #425c43;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .divider {
+            width: 90%;
+            border: none;
+            border-top: 3px solid #425c43;
+            border-radius: 5px;
+            margin: 20px auto;
+        }
+
+        button[type="button"],
+        button[type="submit"] {
+            background-color: #425c43;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-left: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        button[type="button"] a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        button[type="button"]:hover,
+        button[type="submit"]:hover {
+            background-color: #2E8B57;
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            background: #425c43;
+            color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            position: relative;
+            /* Position relative for positioning the text */
+        }
+
+        .footer-bottom::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img alt="Logo" src="photos/Emma_logo.jpg">
+        </div>
+        <div class="logo-text">
+            <h3>Emma's Small Engine</h3>
+        </div>
+        <div class="nav-links">
+            <a href="homePage.html">Home</a>
+            <!-- <a href="repair-form.html">Repair Report</a> -->
+            <div class="dropdown" id="navBarCustomer">
+                <a href="customer-index.html">Customer</a>
+                <div class="dropdown-content">
+                    <a href="add-customer.html">➕ Add New Customer</a>
+                    <a href="customer-index.html">📖 View Existing Customer</a>
+                </div>
+            </div>
+            <a href="repair-record.html" id="navBarRepairRecords">Repair Records</a>
+            <a href="reports.html" id="navBarReports">Reports</a>
+        </div>
+        <span id="userRoleLabel" class="logout-link" style="font-size: 20px; color: white;"></span>
+        <a href="#" class="logout-link" data-toggle="tooltip" data-placement="top" title="Repair under some customers's record shows that technician requires to update the status&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+           Edit under some customer's record is to change their equipment's status.&nbsp;&nbsp;&nbsp;&nbsp; 
+            Terminate under some customers's record is to delete the repair request">Help?</a>
+
+        <a class="logout-link" href="index.html">Logout</a>
+    </header>
+    <main>
+        <div class="banner-img">
+            <h2>Repair Records</h2>
+        </div>
+        <div class="form-container">
+            <form>
+                <div class="form-group">
+                    <label for="name">Repair for:</label>
+                    <input type="text" id="name" name="name" required placeholder="Name of the customer">
+                </div>
+                <div class="form-group">
+                    <label for="Status">Status:</label>
+                    <select id="Status" name="Status" required>
+                        <option value="default" selected>Select status to filter</option>
+                        <option value="pending">🔴Pending</option>
+                        <option value="inProgress">🔵In Progress</option>
+                        <option value="inProgress">🟡Repaired</option>
+                        <option value="completed">🟢Picked up</option>
+                    </select>
+                </div>
+            </form>
+            <button type="submit" data-toggle="tooltip" data-placement="top"
+                title="Search as per filter">Search</button>
+            <button type="button" id="showPickedUpBtn" data-toggle="tooltip" data-placement="top"
+                title="Equipment that are already repaired and delivered will be displayed">Veiw Previous
+                Repairs</button>
+
+            <div id="cardListWrapper">
+                <ul class="card-list">
+                    <!-- Customer 1 -->
+                    <li class="customer-card">
+                        <div class="customer-card-header">
+                            <h3>Meet Hadvaidya</h3>
+                        </div>
+                        <div class="customer-card-body">
+                            <!-- Add repair information for Customer 1 -->
+                            <div class="repair-info">
+                                <p><strong>Product:</strong> Lawn Mower</p>
+                                <p><strong>Issue:</strong> Noise during operation</p>
+                                <p data-toggle="tooltip" data-placement="top" title="Status: In Progress">
+                                    <strong>Status:</strong> 🔵In Progress
+                                </p>
+                            </div>
+                        </div>
+                        <div class="customer-card-footer">
+                            <a href="repair-form.html" data-toggle="tooltip" data-placement="top" title="Start Repair"
+                                class="repairBtn">
+                                <span class="edit-icon">&#128295;</span>Repair
+                            </a>
+                            <a href="repairs-edit.html" data-toggle="tooltip" data-placement="top"
+                                title="Edit Repair Request" class="editBtn">
+                                <span class="edit-icon">&#9998;</span>Edit
+                            </a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Delete Repair Request"
+                                class="terminateBtn">
+                                <span class="edit-icon">&#9747;</span>Terminate
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Customer 2 -->
+                    <li class="customer-card existing-customer-card">
+                        <div class="customer-card-header">
+                            <h3>Hetav Panchal</h3>
+                        </div>
+                        <div class="customer-card-body">
+                            <!-- Add repair information for Customer 2 -->
+                            <div class="repair-info">
+                                <p><strong>Product:</strong> Lawn Mower</p>
+                                <p><strong>Issue:</strong> Noise during operation</p>
+                                <p data-toggle="tooltip" data-placement="top" title="Status: In Progress">
+                                    <strong>Status:</strong> 🔴Pending
+                                </p>
+                            </div>
+                        </div>
+                        <div class="customer-card-footer">
+                            <a href="repair-form.html" data-toggle="tooltip" data-placement="top" title="Start Repair"
+                                class="repairBtn">
+                                <span class="edit-icon">&#128295;</span>Repair
+                            </a>
+                            <a href="repairs-edit.html" data-toggle="tooltip" data-placement="top"
+                                title="Edit Repair Request" class="editBtn">
+                                <span class="edit-icon">&#9998;</span>Edit
+                            </a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Delete Repair Request"
+                                class="terminateBtn">
+                                <span class="edit-icon">&#9747;</span>Terminate
+                            </a>
+                        </div>
+                    </li>
+                    <li class="customer-card">
+                        <div class="customer-card-header">
+                            <h3>Ross</h3>
+                        </div>
+                        <div class="customer-card-body">
+                            <div class="repair-info">
+                                <p><strong>Product:</strong> Leaf Blower</p>
+                                <p><strong>Issue:</strong> Loss of suction power</p>
+                                <p data-toggle="tooltip" data-placement="top" title="Status: Pending">
+                                    <strong>Status:</strong>🔴Pending
+                                </p>
+                            </div>
+                        </div>
+                        <div class="customer-card-footer">
+                            <a href="repair-form.html" data-toggle="tooltip" data-placement="top" title="Start Repair"
+                                class="repairBtn">
+                                <span class="edit-icon">&#128295;</span>Repair
+                            </a>
+                            <a href="repairs-edit.html" data-toggle="tooltip" data-placement="top"
+                                title="Edit Repair Request" class="editBtn">
+                                <span class="edit-icon">&#9998;</span>Edit
+                            </a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Delete Repair Request"
+                                class="terminateBtn">
+                                <span class="edit-icon">&#9747;</span>Terminate
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Customer 4 -->
+                    <li class="customer-card">
+                        <div class="customer-card-header">
+                            <h3>Sumandeep Kaur</h3>
+                        </div>
+                        <div class="customer-card-body">
+                            <div class="repair-info">
+                                <p><strong>Product:</strong> Battery powered lawn mower</p>
+                                <p><strong>Issue:</strong> Battery not charging</p>
+                                <p data-toggle="tooltip" data-placement="top" title="Status: Completed">
+                                    <strong>Status:</strong>🟡Repaired
+                                </p>
+                            </div>
+                        </div>
+                        <div class="customer-card-footer">
+                            <button class="button" id="btnPickedUp"><i
+                                    class="fa-solid fa-truck-ramp-box"></i>PickedUp</button>
+                        </div>
+                    </li>
+
+                    <!-- Customer 5 -->
+                    <li class="customer-card">
+                        <div class="customer-card-header">
+                            <h3>Sumiran Bhandari</h3>
+                        </div>
+                        <div class="customer-card-body">
+                            <div class="repair-info">
+                                <p><strong>Product:</strong> Gas-Powered Lawn Mower</p>
+                                <p><strong>Issue:</strong> Problem in refilling gas</p>
+                                <p data-toggle="tooltip" data-placement="top" title="Status: In Progress">
+                                    <strong>Status:</strong> 🔵In Progress
+                                </p>
+                            </div>
+                        </div>
+                        <div class="customer-card-footer">
+                            <a href="repair-form.html" data-toggle="tooltip" data-placement="top" title="Start Repair"
+                                class="repairBtn">
+                                <span class="edit-icon">&#128295;</span>Repair
+                            </a>
+                            <a href="repairs-edit.html" data-toggle="tooltip" data-placement="top"
+                                title="Edit Repair Request" class="editBtn">
+                                <span class="edit-icon">&#9998;</span>Edit
+                            </a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Delete Repair Request"
+                                class="terminateBtn">
+                                <span class="edit-icon">&#9747;</span>Terminate
+                            </a>
+                        </div>
+                    </li>
+                    <li class="customer-card">
+                        <div class="customer-card-header">
+                            <h3>Jane Doe</h3>
+                        </div>
+                        <div class="customer-card-body">
+                            <div class="repair-info">
+                                <p><strong>Product:</strong> String Trimmer</p>
+                                <p><strong>Issue:</strong> Not working</p>
+                                <p data-toggle="tooltip" data-placement="top" title="Status: In Progress">
+                                    <strong>Status:</strong> 🔵In Progress
+                                </p>
+                            </div>
+                        </div>
+                        <div class="customer-card-footer">
+                            <a href="repair-form.html" data-toggle="tooltip" data-placement="top" title="Start Repair"
+                                class="repairBtn">
+                                <span class="edit-icon">&#128295;</span>Repair
+                            </a>
+                            <a href="repairs-edit.html" data-toggle="tooltip" data-placement="top"
+                                title="Edit Repair Request" class="editBtn">
+                                <span class="edit-icon">&#9998;</span>Edit
+                            </a>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Delete Repair Request"
+                                class="terminateBtn">
+                                <span class="edit-icon">&#9747;</span>Terminate
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-bottom">
+            <p>
+                &copy; 2023 Emma's Small Engine. All rights reserved.
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize Bootstrap tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add event listener for the "Terminate" buttons
+            var terminateButtons = document.querySelectorAll('.customer-card-footer a[data-toggle="tooltip"]');
+            terminateButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    terminateCustomerCard(this);
+                });
+            });
+
+            // Function to hide the parent customer card when the "Terminate" button is clicked
+            function terminateCustomerCard(button) {
+                var customerCard = button.closest('.customer-card');
+                if (customerCard) {
+                    customerCard.style.display = 'none';
+                }
+            }
+        });
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////
+        // Log in Role Authentification
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check the user role
+            var userRole = localStorage.getItem("userRole");
+            // Get elements by class name
+            var repairBtns = document.getElementsByClassName("repairBtn");
+            var editBtns = document.getElementsByClassName("editBtn");
+            var terminateBtn = document.getElementsByClassName("terminateBtn");
+            // function to make all elements with the same ID to disappear
+            function disappearElements(elements) {
+                // Iterate through the array of elements and set their display property to "none"
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].style.display = "none";
+                }
+            }
+            var userRoleLabel = document.getElementById("userRoleLabel");
+            userRoleLabel.textContent = userRole;
+
+            // Implement your role-based logic here
+            switch (userRole) {
+                case "admin":
+                    // Admin-specific logic
+                    break;
+                case "sales":
+                    // Sales-specific logic
+                    disappearElements(repairBtns);
+                    disappearElements(terminateBtn);
+                    var editProcessBtn = document.getElementById("editProcessBtn");
+                    editProcessBtn.style.display = "none";
+
+                    break;
+                case "technician":
+                    // Technician-specific logic
+                    // Get the element representing Navigation option in the NAVBAR 
+                    var navBarReports = document.getElementById("navBarReports");
+                    var navBarCustomer = document.getElementById("navBarCustomer");
+
+
+                    // Get the element representing btnPickedUp
+                    var btnPickedUp = document.getElementById("btnPickedUp");
+                    // Disappear the Navigation option in the NAVBAR by setting its display property to "none"
+                    navBarReports.style.display = "none";
+                    navBarCustomer.style.display = "none";
+                    btnPickedUp.style.display = "none";
+
+
+                    disappearElements(terminateBtn);
+                    disappearElements(editBtns);
+                    break;
+                default:
+                    // Redirect to the index page if no valid role is found
+                    window.location.href = "index.html";
+            }
+        });
+
+
+
+        //////////////picked up button 
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add event listener for the "Picked Up" button
+            var btnPickedUp = document.getElementById('btnPickedUp');
+            btnPickedUp.addEventListener('click', function () {
+                hideCustomerCard(this);
+            });
+
+            // Function to hide the parent customer card when the "Picked Up" button is clicked
+            function hideCustomerCard(button) {
+                var customerCard = button.closest('.customer-card');
+                if (customerCard) {
+                    customerCard.style.display = 'none';
+                }
+            }
+        });
+        /////////////
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add event listener for the "Show with status Picked up" button
+            var showPickedUpBtn = document.getElementById('showPickedUpBtn');
+            showPickedUpBtn.addEventListener('click', function () {
+                toggleCardView();
+            });
+
+            // Variable to store the original HTML content of the card list
+            var originalCardListContent = '';
+
+            // Function to toggle between the original card list and new cards
+            function toggleCardView() {
+                var cardListWrapper = document.getElementById('cardListWrapper');
+
+                // If the original content is not stored, save it
+                if (!originalCardListContent) {
+                    originalCardListContent = cardListWrapper.innerHTML;
+                    // Clear the existing content
+                    cardListWrapper.innerHTML = '';
+                    // Add new cards
+                    addNewCards();
+                } else {
+                    // Restore the original content
+                    cardListWrapper.innerHTML = originalCardListContent;
+                    // Clear the stored original content
+                    originalCardListContent = '';
+                }
+            }
+
+            // Function to add new cards with status "Picked up"
+            function addNewCards() {
+                var cardListWrapper = document.getElementById('cardListWrapper');
+
+                // Define the number of new cards to add
+                var numberOfNewCards = 1;
+
+                // Add new cards
+                for (var i = 0; i < numberOfNewCards; i++) {
+                    var newCard = document.createElement('li');
+                    newCard.className = 'customer-card new-customer-card';
+
+                    newCard.innerHTML = `
+                    <div class="customer-card-header">
+                        <h3>Dave Cress</h3>
+                    </div>
+                    <div class="customer-card-body">
+                        <div class="repair-info">
+                            <p><strong>Product:</strong> Lawn Mower</p>
+                            <p><strong>Issue:</strong> Broken Wheels</p>
+                            <p data-toggle="tooltip" data-placement="top" title="Status: Picked up">
+                                <strong>Status:</strong> 🟢Picked up</p>
+                        </div>
+                    </div>
+                `;
+
+                    cardListWrapper.appendChild(newCard);
+                }
+            }
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repairs Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.28.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global Styles */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        /* Add any custom CSS styles for your repairs page here */
+        .container {
+            background-color: #ffffff;
+            padding: 0px;
+            text-align: center;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 850px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        /* header styles */
+        header {
+            background: #425c43;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            margin-top: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            /* Center the links */
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 180px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 25px;
+            margin: 0 20px;
+            /* Adjust the margin as needed */
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        .logout-link {
+            margin-right: 20px;
+            font-size: 20px;
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .logout-link:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        /* CSS for Buttons and Inputs */
+
+        button[type="cancel"] {
+            display: inline-block;
+            background-color: #cc0000;
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="cancel"]:hover {
+            background-color: #ff3333;
+        }
+
+        input[type="submit"],
+        button[type="button"],
+        input[type="button"] {
+            background-color: #425c43;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover,
+        button[type="button"]:hover,
+        input[type="button"]:hover {
+            background-color: #2E8B57;
+        }
+
+        .test-button-container {
+            position: fixed;
+            top: 100px;
+            /* Adjust this value based on your header height */
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #testButton {
+            background-color: #425c43;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #testButton:hover {
+            background-color: #2E8B57;
+        }
+
+
+        /* Dropdown styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: fixed;
+            background-color: #ffffff;
+            min-width: 160px;
+            z-index: 1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            font-size: 22px;
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: bolder;
+            font-family: sans-serif;
+        }
+
+        .dropdown-content a:hover {
+            color: #425c43;
+            text-decoration: underline;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            background: #425c43;
+            color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            position: relative;
+            /* Position relative for positioning the text */
+        }
+
+        .footer-bottom::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+
+        input[type="text"],
+        select,
+        textarea,
+        input[type="time"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+
+
+        input[type="text"]:focus,
+        input[type="time"]:focus {
+            border-color: #4CAF50;
+        }
+
+        input[type="submit"] {
+            background-color: #425c43;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2E8B57;
+        }
+
+        /* css for tooltip*/
+        .tip-window {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translate(0, -50%);
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            display: none;
+            width: 400px;
+        }
+
+        .tip-window p {
+            margin: 0;
+        }
+
+        .tip-window button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img alt="Logo" src="photos/Emma_logo.jpg">
+        </div>
+        <div class="logo-text">
+            <h3>Emma's Small Engine</h3>
+        </div>
+        <div class="nav-links">
+            <a href="homePage.html">Home</a>
+            <!-- <a href="repair-form.html">Repair Report</a> -->
+            <div class="dropdown" id="navBarCustomer">
+                <a href="customer-index.html">Customer</a>
+                <div class="dropdown-content">
+                    <a href="add-customer.html">➕ Add New Customer</a>
+                    <a href="customer-index.html">📖 View Existing Customer</a>
+                </div>
+            </div>
+            <a href="repair-record.html">Repair Records</a>
+            <a href="reports.html" id="navBarReports">Reports</a>
+
+        </div>
+        <span id="userRoleLabel" class="logout-link" style="font-size: 20px; color: white;"></span>
+        <a href="#" class="logout-link" data-toggle="tooltip" data-placement="top" 
+        title="If the equipment is under warranty, select Yes, othwerise select No">Help? </a>
+        <a class="logout-link" href="index.html">Logout</a>
+    </header>
+    <div class="container">
+        <h2>Repair Request</h2>
+        <form action="repair-record.html" method="get" id="repairRequestForm">
+
+            <div class="form-group">
+                <label for="OwnersName">Owner's Name</label>
+                <div class="input-group"></div>
+                <select class="form-control" id="OwnersName" name="OwnersName" disabled="true">
+                    <option value="" disabled selected>John Doe</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="repairEquipment">Equipment for Repair</label>
+                <div class="input-group"></div>
+                <select class="form-control" id="repairEquipment" name="repairEquipment" disabled="true">
+                    <option value="" disabled selected>Self Propelled Lawn Mover</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="repairDescription">Repair Description</label>
+                <textarea class="form-control" id="repairDescription" name="repairDescription" rows="5"
+                    placeholder="What is wrong with your machine? Make wierd noises or what?"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Is this item under warranty?</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="warranty" id="warrantyYes" value="yes">
+                    <label class="form-check-label" for="warrantyYes">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="warranty" id="warrantyNo" value="no">
+                    <label class="form-check-label" for="warrantyNo">No</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save Request" data-toggle="tooltip"
+                    data-placement="top" title="On saving a new repair request will be created">
+                <input type="button" value="Reset &#8635;" onclick="setTestValues()" data-toggle="tooltip"
+                    data-placement="top" title="Reset the Form">
+                <button type="cancel" onclick="document.location='customer-index.html'" data-toggle="tooltip"
+                    data-placement="top" title="Any changes will be discarded and user will be directed back">&#9747; Discard</button>
+                <div class="test-button-container">
+                    <button type="button" onclick="setTestValues()" data-toggle="tooltip" data-placement="top"
+                        title="Fill form with test values">&#9432;Test</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer>
+        <div class="footer-bottom">
+            <p>
+                &copy; 2023 Emma's Small Engine. All rights reserved.
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize Bootstrap tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+  <script>
+    // homePage.html (and other pages)
+    document.addEventListener("DOMContentLoaded", function () {
+      // Check the user role
+      var userRole = localStorage.getItem("userRole");
+      var userRoleLabel = document.getElementById("userRoleLabel");
+            userRoleLabel.textContent = userRole;
+
+      // Implement your role-based logic here
+      switch (userRole) {
+        case "admin":
+          // Admin-specific logic
+          break;
+        case "sales":
+          // Sales-specific logic
+          break;
+        case "technician":
+          // Technician-specific logic
+          // Get the element representing the "New Customer" card
+          var newCustomerCard = document.getElementById("newCustomerBtn");
+          var existingCustomerCard = document.getElementById("existingCustomerBtn");
+          var reportsBtnCard = document.getElementById("reportsBtn");
+          // Get the element representing Navigation option in the NAVBAR
+          var navBarReports = document.getElementById("navBarReports");
+          var navBarCustomer = document.getElementById("navBarCustomer");
+          // Disappear the card by setting its display property to "none"
+          newCustomerCard.style.display = "none";
+          existingCustomerCard.style.display = "none";
+          reportsBtnCard.style.display = "none";
+          // Disappear the Navigation option in the NAVBAR by setting its display property to "none"
+          navBarReports.style.display = "none";
+          navBarCustomer.style.display = "none";
+          break;
+        default:
+          // Redirect to the index page if no valid role is found
+          window.location.href = "index.html";
+      }
+    });
+
+  </script>
+
+    <script>
+        ///////////////////////////////////////////////for the presentation purposes//////////////////////////////////////////////////////////////
+        function setTestValues() {
+            var form = document.getElementById("repairRequestForm");
+
+            // Set test values for each form element
+            form.elements["repairDescription"].value = "It is not starting up, and it makes weird noises when starting up.";
+            form.elements["warrantyYes"].checked = "true";
+        }
+
+        ///////////////////////////////////////////////for the presentation purposes//////////////////////////////////////////////////////////////
+        ///////// Tool tip
+        function showTip() {
+            document.getElementById('tipWindow').style.display = 'block';
+        }
+
+        function closeTip() {
+            document.getElementById('tipWindow').style.display = 'none';
+        }
+
+        // Show the tip window when the page loads
+        window.onload = function () {
+            var form = document.getElementById("repairRequestForm");
+
+            // Set test values for each form element
+            form.elements["repairDescription"].value = "It is not starting up, and it makes weird noises when starting up.";
+            form.elements["warrantyYes"].checked = "true";
+            showTip();
+            setTestValues();
+        };
+
+
+
+    </script>
+</body>
+
+</html>

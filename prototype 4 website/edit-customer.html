@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Customer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global Styles */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        /* Header Styles */
+        header {
+            background: #425c43;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            font-size: 20px;
+            /* font-family: 'Times New Roman', Times, serif; */
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            /* Center the links */
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 180px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 25px;
+            margin: 0 20px;
+            /* Adjust the margin as needed */
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        .logout-link {
+            margin-right: 20px;
+            font-size: 20px;
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .logout-link:hover {
+            color: #d4f0a9;
+            text-decoration: underline;
+        }
+
+        /* Dropdown styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: fixed;
+            background-color: #ffffff;
+            min-width: 160px;
+            z-index: 1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            font-size: 22px;
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: bolder;
+            font-family: sans-serif;
+        }
+
+        .dropdown-content a:hover {
+            color: #425c43;
+            text-decoration: underline;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            background: #425c43;
+            color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            position: relative;
+        }
+
+        .footer-bottom::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+
+        main {
+            background-color: #ffffff;
+            text-align: center;
+            border-radius: 25px;
+            margin: 20px auto;
+            width: 85%;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 0px;
+            text-align: center;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 850px;
+        }
+
+        h2 {
+            color: #425c43;
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 2px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 10px;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .test-button-container {
+            position: fixed;
+            top: 100px;
+            /* Adjust this value based on your header height */
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #testButton {
+            background-color: #425c43;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #testButton:hover {
+            background-color: #2E8B57;
+        }
+
+        /* CSS for Buttons and Inputs */
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+
+        select {
+            width: 80%;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+        }
+
+        .form-group button[type="submit"] {
+            background-color: #4CAF50;
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group button[type="submit"]:hover {
+            background-color: #2E8B57;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+
+        select {
+            width: 80%;
+        }
+
+        button[type="cancel"] {
+            display: inline-block;
+            background-color: #ff3333;
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="cancel"]:hover {
+            background-color: #cc0000;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+        }
+
+        input[type="submit"],
+        button[type="button"],
+        input[type="reset"] {
+            background-color: #425c43;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover,
+        button[type="button"]:hover,
+        input[type="reset"]:hover {
+            background-color: #2E8B57;
+        }
+
+        input[type="button"] {
+            background-color: #425c43;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="button"]:hover {
+            background-color: #2E8B57;
+        }
+
+        button[type="button"] {
+            display: inline-block;
+            background-color: #cc0000;
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="button"]:hover {
+            background-color: #ff3333;
+        }
+
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .footer-bottom {
+            text-align: center;
+            background: #425c43;
+            color: #ffffff;
+            padding: 15px 0;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            position: relative;
+        }
+
+        .footer-bottom::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-content {
+            background: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-content h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .popup-content input[type="text"],
+        .popup-content select {
+            width: 80%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+            margin: 5px 0;
+            transition: border-color 0.3s ease;
+        }
+
+        .popup-content input[type="text"]:focus {
+            border-color: #4CAF50;
+        }
+
+        .popup-content button {
+            background-color: #425c43;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .popup-content button:hover {
+            background-color: #2E8B57;
+        }
+
+        .popup-content .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img alt="Logo" src="photos/Emma_logo.jpg">
+        </div>
+        <div class="logo-text">
+            <h3>Emma's Small Engine</h3>
+        </div>
+        <div class="nav-links">
+            <a href="homePage.html">Home</a>
+            <!-- <a href="repair-form.html">Repair Report</a> -->
+            <div class="dropdown" id="navBarCustomer">
+                <a href="customer-index.html">Customer</a>
+                <div class="dropdown-content">
+                    <a href="add-customer.html">➕ Add New Customer</a>
+                    <a href="customer-index.html">📖 View Existing Customer</a>
+                </div>
+            </div>
+            <a href="repair-record.html">Repair Records</a>
+            <a href="reports.html" id="navBarReports">Reports</a>
+
+        </div>
+        <span id="userRoleLabel" class="logout-link" style="font-size: 20px; color: white;"></span>
+        <a href="#" class="logout-link" data-toggle="tooltip" data-placement="top" title="➕ under city is to add a new city.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Edit under city is to edit the selected city.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            ➕ under province is to add a new province.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Edit under province is to edit the selected province.">Help?</a>
+
+        <a class="logout-link" href="index.html">Logout</a>
+    </header>
+    <div class="container">
+        <h2>Edit Customer Details</h2>
+        <form id="editCustomer" action="updateCustomer.php" method="post" id="edit-form">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required placeholder="Your First Name">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required placeholder="Your Last Name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required placeholder="abc@gmail.com">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" required placeholder="+1 123-456-7890">
+            </div>
+            <div class="form-group">
+                <label for="street">Street:</label>
+                <input type="text" id="street" name="street" required placeholder="Your street Name">
+            </div>
+            <div class="form-group">
+                <label for="city">City:</label>
+                <select id="city" name="city" required>
+                    <option value="Welland" selected>Welland</option>
+                    <option value="St Catharines">St Catharines</option>
+                    <option value="Niagara Falls">Niagara Falls</option>
+                    <option value="Niagara-on-the-lake">Niagara-on-the-lake</option>
+                </select>
+                <button id="show-city-popup" data-toggle="tooltip" data-placement="top"
+                    title="Add a new City">➕</button>
+                <button id="edit-city" data-toggle="tooltip" data-placement="top"
+                    title="Edit the selected City">Edit</button>
+
+                <div id="city-popup" class="popup">
+                    <div class="popup-content">
+                        <span id="close-city-popup" class="close-popup">&times;</span>
+                        <h2>Add a city:</h2>
+                        <input type="text" id="input-city-text">
+                        <button id="submit-city-button">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="province">Province:</label>
+                <select id="province" name="province" required>
+                    <option value="ON">ON</option>
+                    <option value="BC">BC</option>
+                    <option value="AB">AB</option>
+                    <option value="PEI">PEI</option>
+                </select>
+                <button id="show-province-popup" data-toggle="tooltip" data-placement="top"
+                    title="Add a new province">➕</button>
+                <button id="edit-province" data-toggle="tooltip" data-placement="top"
+                    title="Edit the selected province">Edit</button>
+                <div id="province-popup" class="popup">
+                    <div class="popup-content">
+                        <span id="close-province-popup" class="close-popup">&times;</span>
+                        <h2>Add a province:</h2>
+                        <input type="text" id="input-province-text">
+                        <button id="submit-province-button">Submit</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="postalCode">Postal Code:</label>
+                    <input type="text" id="postalCode" name="postalCode" required placeholder="A1B 2C3">
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update Info" onclick="document.location='customer-index.html'"
+                    data-toggle="tooltip" data-placement="top"
+                    title="Any changes in existing customer data will be updated in records">
+                <input type="reset" value="&#8635;Reset" onclick="resetForm()" data-toggle="tooltip"
+                    data-placement="top" title="Reset the form to its initial state">
+                <button type="button" onclick="document.location='customer-index.html'" data-toggle="tooltip"
+                    data-placement="top"
+                    title="Any changes will be discarded and user will be directed back">&#10799;Discard</button>
+                <!-- <div class="test-button-container">
+                    <button type="button" onclick="setTestValues()" id="testButton" data-toggle="tooltip"
+                        data-placement="top" title="Fill form with test values">&#9432; Test</button>
+                </div> -->
+            </div>
+        </form>
+    </div>
+
+
+    <footer>
+        <div class="footer-bottom">
+            <p>
+                &copy; 2023 Emma's Small Engine. All rights reserved.
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize Bootstrap tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+    <script>
+        // homePage.html (and other pages)
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check the user role
+            var userRole = localStorage.getItem("userRole");
+            var userRoleLabel = document.getElementById("userRoleLabel");
+            userRoleLabel.textContent = userRole;
+            // Implement your role-based logic here
+            switch (userRole) {
+                case "admin":
+                    // Admin-specific logic
+                    break;
+                case "sales":
+                    // Sales-specific logic
+                    break;
+                case "technician":
+                    // Technician-specific logic
+                    // Get the element representing the "New Customer" card
+                    var newCustomerCard = document.getElementById("newCustomerBtn");
+                    var existingCustomerCard = document.getElementById("existingCustomerBtn");
+                    var reportsBtnCard = document.getElementById("reportsBtn");
+                    // Get the element representing Navigation option in the NAVBAR
+                    var navBarReports = document.getElementById("navBarReports");
+                    var navBarCustomer = document.getElementById("navBarCustomer");
+                    // Disappear the card by setting its display property to "none"
+                    newCustomerCard.style.display = "none";
+                    existingCustomerCard.style.display = "none";
+                    reportsBtnCard.style.display = "none";
+                    // Disappear the Navigation option in the NAVBAR by setting its display property to "none"
+                    navBarReports.style.display = "none";
+                    navBarCustomer.style.display = "none";
+                    break;
+                default:
+                    // Redirect to the index page if no valid role is found
+                    window.location.href = "index.html";
+            }
+        });
+
+    </script>
+
+    <script>
+
+        ///////////////////////////////////////////////for the presentation purposes//////////////////////////////////////////////////////////////
+        // Function to set test values for the entire form
+        document.addEventListener('DOMContentLoaded', function () {
+            // Your method or code to be executed when the DOM is ready
+            setOriginalValues();
+        });
+        function setOriginalValues() {
+            var form = document.getElementById("editCustomer");
+
+            // Set test values for each form element
+            form.elements["firstName"].value = "John";
+            form.elements["lastName"].value = "Doe";
+            form.elements["email"].value = "john.doe@example.com";
+            form.elements["phone"].value = "+1 123-456-7890";
+            form.elements["street"].value = "123 Main Street";
+            form.elements["city"].selectedIndex = 1; // Select the second city option
+            form.elements["province"].selectedIndex = 2; // Select the third province option
+            form.elements["postalCode"].value = "A1B 2C3";
+
+        }
+
+        function setTestValues() {
+            var form = document.getElementById("editCustomer");
+
+            // Set test values for each form element
+            form.elements["firstName"].value = "Ross";
+            form.elements["lastName"].value = "Boss";
+            form.elements["email"].value = "Ross.boss@example.com";
+            form.elements["phone"].value = "+1 999-999-9999";
+            form.elements["street"].value = "666 Button Street";
+            form.elements["city"].selectedIndex = 3; // Select the second city option
+            form.elements["province"].selectedIndex = 1; // Select the third province option
+            form.elements["postalCode"].value = "LOS SAN";
+
+        }
+        ///////////////////////////////////////////////for the presentation purposes//////////////////////////////////////////////////////////////
+
+        // Function to reset form fields to their original values
+        function resetForm() {
+            // Get the form element
+            var form = document.getElementById("editCustomer");
+
+            // Loop through each form element
+            for (var i = 0; i < form.elements.length; i++) {
+                var element = form.elements[i];
+
+                // Check if the element is an input field or select element
+                if (element.type === "text" || element.type === "password") {
+                    // Set the value to the original value stored in the data-original-value attribute
+                    element.value = element.getAttribute("data-original-value");
+                } else if (element.type === "select-one") {
+                    // Set the selected index to the original value stored in the data-original-value attribute
+                    element.selectedIndex = element.getAttribute("data-original-value");
+                }
+            }
+        }
+
+        // Function to initialize original values when the page loads
+        window.onload = function () {
+            var form = document.getElementById("editCustomer");
+
+            // Loop through each form element
+            for (var i = 0; i < form.elements.length; i++) {
+                var element = form.elements[i];
+
+                // Store the original value in the data-original-value attribute
+                if (element.type === "text" || element.type === "password" || element.type === "select-one") {
+                    element.setAttribute("data-original-value", element.value);
+                }
+            }
+        };
+
+        /////////////// ////////////// test for editing options//////////////////////////////////////////////
+        // Edit Functionality for City
+        const citySelect = document.getElementById("city");
+        const editCityButton = document.getElementById("edit-city"); // Updated ID
+
+        editCityButton.addEventListener("click", function () {
+            const selectedOption = citySelect.options[citySelect.selectedIndex];
+
+            if (selectedOption) {
+                const newValue = prompt("Edit the selected manufacturer:", selectedOption.value);
+
+                if (newValue !== null) {
+                    selectedOption.value = newValue;
+                    selectedOption.text = newValue;
+                }
+            }
+        });
+
+        // Edit Functionality for Province
+        const provinceSelect = document.getElementById("province");
+        const editProvinceButton = document.getElementById("edit-province"); // Updated ID
+
+        editProvinceButton.addEventListener("click", function () {
+            const selectedOption = provinceSelect.options[provinceSelect.selectedIndex];
+
+            if (selectedOption) {
+                const newValue = prompt("Edit the selected manufacturer:", selectedOption.value);
+
+                if (newValue !== null) {
+                    selectedOption.value = newValue;
+                    selectedOption.text = newValue;
+                }
+            }
+        });
+        /////////////// ////////////// test for editing options//////////////////////////////////////////////
+        const showCityPopupButton = document.getElementById("show-city-popup");
+        const cityPopup = document.getElementById("city-popup");
+        const closeCityPopupButton = document.getElementById("close-city-popup");
+        const inputCityText = document.getElementById("input-city-text");
+        const submitCityButton = document.getElementById("submit-city-button");
+
+        // Get DOM elements for the province popup
+        const showProvincePopupButton = document.getElementById("show-province-popup");
+        const provincePopup = document.getElementById("province-popup");
+        const closeProvincePopupButton = document.getElementById("close-province-popup");
+        const inputProvinceText = document.getElementById("input-province-text");
+        const submitProvinceButton = document.getElementById("submit-province-button");
+
+        // Show the city popup when the button is clicked
+        showCityPopupButton.addEventListener("click", () => {
+            cityPopup.style.display = "block";
+        });
+
+        // Close the city popup when the close button is clicked
+        closeCityPopupButton.addEventListener("click", () => {
+            cityPopup.style.display = "none";
+        });
+
+        cityPopup.addEventListener("click", (event) => {
+            if (event.target === cityPopup) {
+                cityPopup.style.display = "none";
+            }
+        });
+
+        submitCityButton.addEventListener("click", () => {
+            const userInput = inputCityText.value.trim();
+            if (userInput !== "") {
+                const newOption = document.createElement("option");
+                newOption.value = userInput;
+                newOption.text = userInput;
+
+                const cityDropdown = document.getElementById("city");
+                cityDropdown.appendChild(newOption);
+
+                newOption.selected = true;
+
+                cityPopup.style.display = "none";
+            } else {
+                alert("Please enter a city name.");
+            }
+        });
+        showProvincePopupButton.addEventListener("click", () => {
+            provincePopup.style.display = "block";
+        });
+
+        closeProvincePopupButton.addEventListener("click", () => {
+            provincePopup.style.display = "none";
+        });
+
+        provincePopup.addEventListener("click", (event) => {
+            if (event.target === provincePopup) {
+                provincePopup.style.display = "none";
+            }
+        });
+
+        submitProvinceButton.addEventListener("click", () => {
+            const userInput = inputProvinceText.value.trim();
+            if (userInput !== "") {
+                const newOption = document.createElement("option");
+                newOption.value = userInput;
+                newOption.text = userInput;
+
+                const provinceDropdown = document.getElementById("province");
+                provinceDropdown.appendChild(newOption);
+
+                newOption.selected = true;
+
+                provincePopup.style.display = "none";
+            } else {
+                alert("Please enter a province name.");
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
